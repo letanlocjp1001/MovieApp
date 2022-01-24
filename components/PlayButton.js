@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const PlayButton = ({handlePress}) => {
   return (
-    <Pressable style={styles.button} onPress={() => handlePress()}>
+    <Pressable style={styles.button} onPress={handlePress}>
       <Icon name="caret-forward-circle-outline" size={30} color={'#fff'} />
     </Pressable>
   );

@@ -16,7 +16,7 @@ import dateFormat from 'dateformat';
 
 import PlayButton from '../components/PlayButton';
 import StarRating from 'react-native-star-rating';
-import VideoPlayer from 'react-native-video-controls';
+import Video from '../components/Video';
 
 import placeholderImage from '../assets/images/placeholder.png';
 
@@ -88,15 +88,12 @@ const Detail = ({route, navigation}) => {
               </Text>
             </View>
           </ScrollView>
-          <Modal animationType="slide" visible={modalVisible}>
+          <Modal
+            animationType="slide"
+            visible={modalVisible}
+            supportedOrientations={['portrait', 'landscape']}>
             <View style={styles.videoModal}>
-              <VideoPlayer
-                onBack={() => {
-                  videoShown();
-                }}
-                navigator={navigation}
-                source={{uri: 'https://vjs.zencdn.net/v/oceans.mp4'}}
-              />
+              <Video onClose={() => videoShown()} />
             </View>
           </Modal>
         </View>
