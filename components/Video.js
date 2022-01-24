@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+// import {StyleSheet, Text, View} from 'react-native';
 import VideoPlayer from 'react-native-video-controls';
 
 const Video = ({onClose, navigation}) => {
@@ -14,5 +14,5 @@ const Video = ({onClose, navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+// const styles = StyleSheet.create({});
 export default Video;
