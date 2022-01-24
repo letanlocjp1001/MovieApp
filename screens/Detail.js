@@ -13,8 +13,10 @@ import {
 
 import {getMovies} from '../services/services';
 import dateFormat from 'dateformat';
-import {Rating} from 'react-native-ratings';
+
 import PlayButton from '../components/PlayButton';
+import StarRating from 'react-native-star-rating';
+import VideoPlayer from 'react-native-video-controls';
 
 import placeholderImage from '../assets/images/placeholder.png';
 
@@ -72,21 +74,13 @@ const Detail = ({route, navigation}) => {
                   })}
                 </View>
               )}
-              <Rating
-                type="custom"
-                ratingColor="gold"
-                ratingBackgroundColor="#ccc"
-                startingValue={movieDetail.vote_average / 2}
-                tintColor="#F2F2F2"
-                imageSize={40}
+              <StarRating
+                disabled={true}
+                maxStars={5}
+                rating={movieDetail.vote_average / 2}
+                fullStarColor={'gold'}
+                starSize={30}
               />
-              {/* <StarRating
-              disabled={true}
-              maxStars={5}
-              rating={movieDetail.vote_average / 2}
-              fullStarColor={'gold'}
-              starSize={30}
-            /> */}
               <Text style={styles.overview}>{movieDetail.overview}</Text>
               <Text style={styles.release}>
                 {'Release date: ' +
@@ -96,9 +90,13 @@ const Detail = ({route, navigation}) => {
           </ScrollView>
           <Modal animationType="slide" visible={modalVisible}>
             <View style={styles.videoModal}>
-              <Pressable onPress={() => videoShown()}>
-                <Text>Hide Modal</Text>
-              </Pressable>
+              <VideoPlayer
+                onBack={() => {
+                  videoShown();
+                }}
+                navigator={navigation}
+                source={{uri: 'https://vjs.zencdn.net/v/oceans.mp4'}}
+              />
             </View>
           </Modal>
         </View>
