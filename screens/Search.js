@@ -5,12 +5,30 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  FlatList,
+  Text,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import {searchMovieTv} from '../services/services';
+import Card from '../components/Card';
+import Error from '../components/Error';
 
 const Search = ({navigation}) => {
   const [text, onChangeText] = useState();
+  const [searchResults, setSearchResults] = useState();
+  const [error, setError] = useState(false);
+
+  const onSubmit = query => {
+    Promise.all([searchMovieTv(query, 'movie'), searchMovieTv(query, 'tv')])
+      .then(([movie, tv]) => {
+        const data = [...movie, ...tv];
+        setSearchResults(data);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  };
   return (
     <>
       <SafeAreaView>
@@ -23,9 +41,43 @@ const Search = ({navigation}) => {
               placeholder="Search Movie or TV Show"
             />
           </View>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              onSubmit(text);
+            }}>
             <Icon name="search-outline" size={30} />
           </TouchableOpacity>
+        </View>
+        <View style={styles.searchItems}>
+          {/* Searched items results */}
+          {searchResults && searchResults.length > 0 && (
+            <FlatList
+              numColumns={3}
+              data={searchResults}
+              renderItem={({item}) => (
+                <Card navigation={navigation} item={item} />
+              )}
+              keyExtractor={item => item.id}
+            />
+          )}
+
+          {/* When searched but no results */}
+          {searchResults && searchResults.length == 0 && (
+            <View style={styles.empty}>
+              <Text>No results matching your criteria</Text>
+              <Text>Tru different keywords</Text>
+            </View>
+          )}
+
+          {/* When noting is searched */}
+          {!searchResults && (
+            <View style={styles.empty}>
+              <Text>Type something to start searching</Text>
+            </View>
+          )}
+
+          {/* Error */}
+          {error && <Error />}
         </View>
       </SafeAreaView>
     </>

@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     padding: 5,
     position: 'relative',
     height: 200,
+    marginVertical: 5,
   },
   image: {
     height: 200,

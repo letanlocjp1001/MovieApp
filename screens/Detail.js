@@ -122,9 +122,9 @@ const styles = StyleSheet.create({
     height: height / 2.5,
   },
   movieTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginVertical: 20,
   },
   overview: {
     padding: 15,

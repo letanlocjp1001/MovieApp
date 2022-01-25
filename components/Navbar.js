@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import Colors from '../theme/Colors';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -31,7 +31,7 @@ const Navbar = ({navigation, main}) => {
             onPress={() => {
               navigation.navigate('Search');
             }}>
-            <Icon name="search-outline" size={30} color="white" />
+            <Icon name="search-outline" size={30} color={Colors.white} />
           </TouchableOpacity>
         </View>
       ) : (
@@ -40,7 +40,7 @@ const Navbar = ({navigation, main}) => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <Icon name="chevron-back" size={40} color="white" />
+            <Icon name="chevron-back" size={40} color={Colors.lightGray} />
           </TouchableOpacity>
         </View>
       )}
